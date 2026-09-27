@@ -39,7 +39,7 @@ namespace Tank.Flash
       
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["username"] == null) && string.IsNullOrEmpty(Session["username"].ToString()))
+            if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Redirect(LoginOnUrl, false);
             }
@@ -60,7 +60,7 @@ namespace Tank.Flash
                     key = BaseInterface.GetLoginKey;
                 }
                 string v = BaseInterface.md5(name + password + time.ToString() + key);
-                string Url = (BaseInterface.LoginUrl + "?content=" + HttpUtility.UrlEncode(name + "|" + password +"|srv|login" + "|" + time.ToString() + "|" + v));
+                string Url = (BaseInterface.LoginUrl + "?content=" + HttpUtility.UrlEncode(name + "|" + password + "|" + time.ToString() + "|" + v));
                 result = BaseInterface.RequestContent(Url);
                 if (result == "0")
                 {
